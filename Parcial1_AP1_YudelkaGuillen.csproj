@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Pages\Registros\Details\" />
     <Folder Include="Data\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
