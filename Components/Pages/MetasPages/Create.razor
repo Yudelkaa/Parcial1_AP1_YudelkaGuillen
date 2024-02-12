@@ -1,5 +1,87 @@
-﻿<h3>Create</h3>
+﻿@page "/Create"
+@inject MetasService metasServices
+@rendermode InteractiveServer
+
+<PageTitle>Metas</PageTitle>
+<EditForm Model="metas" OnValidSubmit="Guardar">
+
+	<div class="container">
+		<div class="card shadow-lg">
+			<div class="card-header">
+				<NavLink class="d-flex justify-content-end bi bi-house-gear3" href="/Index">Consulta</NavLink>
+				<h1>Registro</h1>
+			</div>
+
+			<div class="card-body">
+				<div class="col-xl-4">
+					<label for="metas"><strong>Metas Id:</strong></label>
+					<div class="input-group">
+						<InputNumber @bind-Value="metas.MetasId" class="form-control" />
+						<button @onclick="Buscar" class="btn btn-primary bi bi-search-heart" type="button"></button>
+					</div>
+				</div>
+				<div class="col-xl-4">
+					<label for="metas"><strong>Fecha:</strong></label>
+					<div class="mb-3">
+						<InputDate @bind-Value="metas.Fecha" class="form-control" />
+					</div>
+					<ValidationMessage For="@(()=>metas.Fecha)" />
+				</div>
+
+				<div class="col-xl-4">
+					<label for="metas"><strong>Descripcion:</strong></label>
+					<div class="mb-3">
+						<InputText @bind-Value="metas.Descripcion" class="form-control" />
+					</div>
+					<ValidationMessage For="@(()=>metas.Descripcion)" />
+				</div>
+				<div class="mb-3">
+					<label for="metas"><strong>Monto:</strong></label>
+					<div class="mb-3">
+						<InputTextArea @bind-Value="metas.Monto" class="form-control" />
+					</div>
+					<ValidationMessage For="@(()=>metas.Descripcion)" />
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="btn-group">
+					<button type="button" @onclick="Nuevo" class="btn btn-primary bi bi-file-earmark-plus-fill">Nuevo</button>
+					<button type="submit" @onclick="Guardar" class="btn btn-success bi bi-floppy-fill">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<DataAnnotationsValidator />
+</EditForm>
 
 @code {
+	public Metas metas { get; set; } = new Metas();
+	public string? mensaje = "";
+
+	public async Task Buscar()
+	{
+		var encontrar = await metasServices.Buscar(metas.MetasId);
+
+	}
+	public async Task Guardar()
+	{
+		var guardo = await metasServices.Guardar(metas);
+		if (guardo)
+		{
+			mensaje = "guardado";
+			Nuevo();
+		}
+		else
+		{
+			mensaje = "no guardado";
+
+		}
+
+	}
+	public void Nuevo()
+	{
+		metas = new Metas();
+		mensaje = string.Empty;
+	}
 
 }
