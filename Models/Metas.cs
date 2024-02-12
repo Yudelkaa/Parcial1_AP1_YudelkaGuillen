@@ -5,7 +5,6 @@ namespace Parcial1_AP1_YudelkaGuillen.Models
     public class Metas
     {
         [Key]
-
         public int MetasId { get; set; }
 
         [Required(ErrorMessage ="Es requerido")]
