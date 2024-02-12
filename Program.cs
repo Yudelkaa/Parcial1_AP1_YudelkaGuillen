@@ -1,10 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Parcial1_AP1_YudelkaGuillen.Components;
+using Parcial1_AP1_YudelkaGuillen.Context;
+using Parcial1_AP1_YudelkaGuillen.Services;
+using System.Diagnostics.Metrics;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+builder.Services.AddDbContext<Contexto>(Options => Options.UseSqlite(ConStr));
+builder.Services.AddScoped<MetasService>();
 
 var app = builder.Build();
 
