@@ -14,4 +14,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\Registros\Details\" />
+    <Folder Include="Data\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Context\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
