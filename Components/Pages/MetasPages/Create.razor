@@ -31,14 +31,14 @@
 				<div class="col-xl-4">
 					<label for="metas"><strong>Descripcion:</strong></label>
 					<div class="mb-3">
-						<InputText @bind-Value="metas.Descripcion" class="form-control" />
+						<InputTextArea @bind-Value="metas.Descripcion" class="form-control" />
 					</div>
 					<ValidationMessage For="@(()=>metas.Descripcion)" />
 				</div>
 				<div class="mb-3">
 					<label for="metas"><strong>Monto:</strong></label>
 					<div class="mb-3">
-						<InputTextArea @bind-Value="metas.Monto" class="form-control" />
+						<InputNumber @bind-Value="metas.Monto" class="form-control" />
 					</div>
 					<ValidationMessage For="@(()=>metas.Descripcion)" />
 				</div>

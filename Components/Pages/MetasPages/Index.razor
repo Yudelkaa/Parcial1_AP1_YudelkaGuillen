@@ -1,5 +1,121 @@
-﻿<h3>Index</h3>
+﻿@page "/Index"
+@inject MetasService metasService
+@rendermode InteractiveServer
+
+<PageTitle>Consulta</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		<div class="card-header">
+			<NavLink class="d-flex justify-content-end" href="/Create">Volver atr&aacute;s</NavLink>
+			<h2>Consulta</h2>
+
+			<div class="row">
+				<div class="col-3">
+					<label class="fw-bold">Filtrar por:</label>
+					<InputSelect class="form-control" @bind-Value="opcion">
+						<option value="1">MetasID</option>
+						<option value="2">Descripci&oacute;n</option>
+						<option value="3">Fecha</option>
+					</InputSelect>
+				</div>
+
+				<div class="col-3">
+					@switch (opcion)
+					{
+						case 1:
+							<label class="fw-bold">Buscar: </label>
+							<div class="input-group">
+								<InputNumber @bind-Value="metas.MetasId" class="form-select"></InputNumber>
+								<button type="button" @onclick="Filtro" class="btn btn-primary bi bi-search-heart">Buscar</button>
+
+							</div>
+							break;
+						case 2:
+							<label class="fw-bold">Buscar: </label>
+							<div class="input-group">
+								<InputText @bind-Value="metas.Descripcion" class="form-select"></InputText>
+								<button type="button" @onclick="Filtro" class="btn btn-primary bi bi-search-heart">Buscar</button>
+
+							</div>
+							break;
+						case 3:
+							<label class="fw-bold">Buscar: </label>
+							<div class="input-group">
+								<InputNumber @bind-Value="metas.Monto" class="form-select"></InputNumber>
+								<button type="button" @onclick="Filtro" class="btn btn-primary bi bi-search-heart">Buscar</button>
+
+							</div>
+							break;
+
+					}
+
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-hover">
+			<thead class="text-center">
+				<tr>
+					<th>MetasId</th>
+					<th>Descripci&oacute;n</th>
+					<th>Monto</th>
+					<th>Eliminar</th>
+					<th>Ver</th>
+					<th>Editar</th>
+				</tr>
+			</thead>
+			<tbody class="text-center">
+				@foreach (var metas in ListaMetas)
+				{
+					<tr>
+						<td>@metas.MetasId</td>
+						<td>@metas.Descripcion</td>
+						<td>@metas.Monto</td>
+						<td>
+							<a href="/Delete/@metas.MetasId" class="btn btn-danger bi bi-trash" />
+						</td>
+						<td>
+							<a href="/Details/@metas.MetasId" class="bi bi-info btn btn-warning" />
+						</td>
+						<td>
+							<a href="/Edit/@metas.MetasId" class="bi bi-pencil btn btn-success" />
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
 
 @code {
+	public int opcion { get; set; }
+	public string Filtrar = "", busqueda = "";
+	public List<Metas> ListaMetas = new List<Metas>();
+	public Metas metas { get; set; } = new Metas();
 
+	protected override async Task OnInitializedAsync()
+	{
+		ListaMetas = await metasService.Listar(m => true);
+	}
+
+	public async Task Buscar()
+	{
+		var encontrar = await metasService.Buscar(metas.MetasId);
+	}
+
+	public async Task Filtro()
+	{
+		if (opcion == 1)
+		{
+			ListaMetas = await metasService.Listar(m => m.MetasId == metas.MetasId);
+		}
+		else if (opcion == 2 && !string.IsNullOrEmpty(metas.Descripcion))
+		{
+			ListaMetas = await metasService.Listar(m => m.Descripcion!.ToLower().
+			Contains(metas.Descripcion!.ToLower()));
+
+		}
+		
+	}
 }
+
