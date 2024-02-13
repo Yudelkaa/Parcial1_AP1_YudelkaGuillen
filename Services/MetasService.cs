@@ -2,9 +2,8 @@
 using System.Linq.Expressions;
 using Parcial1_AP1_YudelkaGuillen.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Metrics;
 using Parcial1_AP1_YudelkaGuillen.Migrations;
-
+using Parcial1_AP1_YudelkaGuillen.Models;
 namespace Parcial1_AP1_YudelkaGuillen.Services
 {
     public class MetasService
@@ -15,14 +14,14 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             _contexto = contexto;
 
         }
-        public async Task<bool> Insertar(Models.metas meta)
+        public async Task<bool> Insertar(metas meta)
         {
             _contexto.Metas.Add(meta);
             return await _contexto.SaveChangesAsync() > 0;
 
         }
 
-        public async Task<bool> Modificar(Models.metas metas)
+        public async Task<bool> Modificar(metas metas)
         {
             if (metas.MetasId != 0)
             {
@@ -35,18 +34,8 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
                 return false;
             }
         }
-       /* public async Task<bool> Guardar(Metas metas)
-        {
-            if (!await Existe(metas.MetasId))
-            {
-                return await Insertar(metas);
-            }
-            else
-            {
-                return await Modificar(metas);
-            }
-        }*/
-        public async Task<bool> Guardar(Models.metas metas)
+  
+        public async Task<bool> Guardar(metas metas)
         {
             if (metas.MetasId == 0)
                 await _contexto.Metas.AddAsync(metas);
@@ -55,7 +44,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             return await _contexto.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> Eliminar(Models.metas metas)
+        public async Task<bool> Eliminar(metas metas)
         {
             var cantidad = await _contexto.Metas
                 .Where(a => a.MetasId == metas.MetasId)
