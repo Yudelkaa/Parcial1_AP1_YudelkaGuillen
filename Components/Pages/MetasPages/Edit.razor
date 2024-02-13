@@ -44,7 +44,7 @@
 @code {
     [Parameter]
     public int MetasId { get; set; }
-    public metas metas { get; set; } = new metas();
+    public Metas metas { get; set; } = new Metas();
     public string? Mensaje = "";
 
     protected override async Task OnInitializedAsync()
@@ -68,7 +68,7 @@
 
     public void Nuevo()
     {
-        metas = new metas();
+        metas = new Metas();
         Mensaje = string.Empty;
     }
 

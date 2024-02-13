@@ -55,7 +55,7 @@
 </EditForm>
 
 @code {
-	public metas metas { get; set; } = new metas();
+	public Metas metas { get; set; } = new Metas();
 	public string? mensaje = "";
 
 	public async Task Buscar()
@@ -80,7 +80,7 @@
 	}
 	public void Nuevo()
 	{
-		metas = new metas();
+		metas = new Metas();
 		mensaje = string.Empty;
 	}
 
