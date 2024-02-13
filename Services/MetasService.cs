@@ -14,14 +14,14 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             _contexto = contexto;
 
         }
-        public async Task<bool> Insertar(metas meta)
+        public async Task<bool> Insertar(Metas meta)
         {
             _contexto.Metas.Add(meta);
             return await _contexto.SaveChangesAsync() > 0;
 
         }
 
-        public async Task<bool> Modificar(metas metas)
+        public async Task<bool> Modificar(Metas metas)
         {
             if (metas.MetasId != 0)
             {
@@ -35,7 +35,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             }
         }
   
-        public async Task<bool> Guardar(metas metas)
+        public async Task<bool> Guardar(Metas metas)
         {
             if (metas.MetasId == 0)
                 await _contexto.Metas.AddAsync(metas);
@@ -44,7 +44,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             return await _contexto.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> Eliminar(metas metas)
+        public async Task<bool> Eliminar(Metas metas)
         {
             var cantidad = await _contexto.Metas
                 .Where(a => a.MetasId == metas.MetasId)
@@ -52,7 +52,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             return cantidad > 0;
         }
 
-        public async Task<Models.metas?> Buscar(int aportesId)
+        public async Task<Metas?> Buscar(int aportesId)
         {
             return await _contexto.Metas.AsNoTracking().FirstOrDefaultAsync(a => a.MetasId == aportesId);
         }
@@ -62,7 +62,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             return await _contexto.Metas!.AnyAsync(a => a.MetasId == aportesId);
         }
 
-        public async Task<List<Models.metas>> Listar(Expression<Func<Models.metas, bool>> criterio)
+        public async Task<List<Metas>> Listar(Expression<Func<Metas, bool>> criterio)
         {
             return await _contexto.Metas.AsNoTracking().Where(criterio).ToListAsync();
         }

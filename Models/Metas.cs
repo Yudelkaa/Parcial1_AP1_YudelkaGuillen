@@ -2,7 +2,7 @@
 
 namespace Parcial1_AP1_YudelkaGuillen.Models
 {
-    public class metas
+    public class Metas
     {
         [Key]
         public int MetasId { get; set; }
