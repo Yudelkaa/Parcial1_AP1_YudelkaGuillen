@@ -16,6 +16,7 @@
 						<option value="1">MetasID</option>
 						<option value="2">Descripci&oacute;n</option>
 						<option value="3">Fecha</option>
+						
 					</InputSelect>
 				</div>
 
@@ -41,7 +42,7 @@
 						case 3:
 							<label class="fw-bold">Buscar: </label>
 							<div class="input-group">
-								<InputNumber @bind-Value="metas.Monto" class="form-select"></InputNumber>
+								<InputNumber @bind-Value="metas.Fecha" class="form-select"></InputNumber>
 								<button type="button" @onclick="Filtro" class="btn btn-primary bi bi-search-heart">Buscar</button>
 
 							</div>
@@ -70,7 +71,7 @@
 					<tr>
 						<td>@metas.MetasId</td>
 						<td>@metas.Descripcion</td>
-						<td>@metas.Monto</td>
+						<td>@metas.Fecha</td>
 						<td>
 							<a href="/Delete/@metas.MetasId" class="btn btn-danger bi bi-trash" />
 						</td>
@@ -90,8 +91,8 @@
 @code {
 	public int opcion { get; set; }
 	public string Filtrar = "", busqueda = "";
-	public List<Metas> ListaMetas = new List<Metas>();
-	public Metas metas { get; set; } = new Metas();
+	public List<metas> ListaMetas = new List<metas>();
+	public metas metas { get; set; } = new metas();
 
 	protected override async Task OnInitializedAsync()
 	{

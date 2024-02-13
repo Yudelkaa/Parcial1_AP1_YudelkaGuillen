@@ -2,7 +2,7 @@
 
 namespace Parcial1_AP1_YudelkaGuillen.Models
 {
-    public class Metas
+    public class metas
     {
         [Key]
         public int MetasId { get; set; }
@@ -15,5 +15,6 @@ namespace Parcial1_AP1_YudelkaGuillen.Models
         public string? Descripcion { get; set; }
         [Required(ErrorMessage = "Es requerido")]
         public double Monto { get; set; }
-    }
+		
+	}
 }

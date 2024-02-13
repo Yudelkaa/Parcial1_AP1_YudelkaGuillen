@@ -40,13 +40,13 @@
 					<div class="mb-3">
 						<InputNumber @bind-Value="metas.Monto" class="form-control" />
 					</div>
-					<ValidationMessage For="@(()=>metas.Descripcion)" />
+					<ValidationMessage For="@(()=>metas.Monto)" />
 				</div>
 			</div>
 			<div class="card-footer">
 				<div class="btn-group">
 					<button type="button" @onclick="Nuevo" class="btn btn-primary bi bi-file-earmark-plus-fill">Nuevo</button>
-					<button type="submit" @onclick="Guardar" class="btn btn-success bi bi-floppy-fill">Guardar</button>
+					<button type="submit" class="btn btn-success bi bi-floppy-fill">Guardar</button>
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 </EditForm>
 
 @code {
-	public Metas metas { get; set; } = new Metas();
+	public metas metas { get; set; } = new metas();
 	public string? mensaje = "";
 
 	public async Task Buscar()
@@ -80,7 +80,7 @@
 	}
 	public void Nuevo()
 	{
-		metas = new Metas();
+		metas = new metas();
 		mensaje = string.Empty;
 	}
 

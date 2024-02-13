@@ -1,5 +1,62 @@
-﻿<h3>Delete</h3>
+﻿@page "/Delete"
+@page "/Delete/{MetasId:int}"
+@inject MetasService metasServices
+@rendermode InteractiveServer
+
+<PageTitle>Eliminar Aporte</PageTitle>
+
+<div class="container">
+	<div class="card shadow-lg">
+		<div class="card-header text-center">
+			<h2>Eliminar</h2>
+		</div>
+
+		<div class="card-body">
+			<h3 class="text-danger text-center">¿Seguro que quiere eliminar?</h3>
+			<ul>
+				<li>Aporte Id: @metas.MetasId</li>
+				<li>Fecha: @metas.Fecha</li>
+				<li>Descricpi&oacute;n: @metas.Descripcion</li>
+				<li>Observaci&oacute;n: @metas.Monto</li>
+			</ul>
+		</div>
+		<div class="card-footer text-center">
+			<div class="input-group">
+				<button class="btn btn-danger" @onclick="Eliminar">S&iacute;</button>
+				<a href="/Index" class="btn btn-warning">Volver</a>
+			</div>
+		</div>
+	</div>
+</div>
 
 @code {
+	[Parameter]
+	public int MetasId { get; set; }
+	public metas metas { get; set; } = new metas();
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (MetasId > 0)
+		{
+			metas.MetasId = MetasId;
+			await Buscar();
+		}
+	}
+
+	public async Task Buscar()
+	{
+		var buscado = await metasServices.Buscar(metas.MetasId);
+		if (buscado != null)
+		{
+			metas = buscado;
+		}
+	}
+
+	public async Task Eliminar()
+	{
+		var eliminado = await metasServices.Eliminar(metas);
+		if (eliminado)
+			metas = new metas();
+	}
 
 }

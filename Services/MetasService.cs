@@ -15,14 +15,14 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             _contexto = contexto;
 
         }
-        public async Task<bool> Insertar(Metas meta)
+        public async Task<bool> Insertar(Models.metas meta)
         {
             _contexto.Metas.Add(meta);
             return await _contexto.SaveChangesAsync() > 0;
 
         }
 
-        public async Task<bool> Modificar(Metas metas)
+        public async Task<bool> Modificar(Models.metas metas)
         {
             if (metas.MetasId != 0)
             {
@@ -35,9 +35,9 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
                 return false;
             }
         }
-        public async Task<bool> Guardar(Metas metas)
+       /* public async Task<bool> Guardar(Metas metas)
         {
-            if (await Existe(metas.MetasId))
+            if (!await Existe(metas.MetasId))
             {
                 return await Insertar(metas);
             }
@@ -45,9 +45,17 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             {
                 return await Modificar(metas);
             }
+        }*/
+        public async Task<bool> Guardar(Models.metas metas)
+        {
+            if (metas.MetasId == 0)
+                await _contexto.Metas.AddAsync(metas);
+            else
+                _contexto.Metas.Update(metas);
+            return await _contexto.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> Eliminar(Metas metas)
+        public async Task<bool> Eliminar(Models.metas metas)
         {
             var cantidad = await _contexto.Metas
                 .Where(a => a.MetasId == metas.MetasId)
@@ -55,7 +63,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             return cantidad > 0;
         }
 
-        public async Task<Metas?> Buscar(int aportesId)
+        public async Task<Models.metas?> Buscar(int aportesId)
         {
             return await _contexto.Metas.AsNoTracking().FirstOrDefaultAsync(a => a.MetasId == aportesId);
         }
@@ -65,7 +73,7 @@ namespace Parcial1_AP1_YudelkaGuillen.Services
             return await _contexto.Metas!.AnyAsync(a => a.MetasId == aportesId);
         }
 
-        public async Task<List<Metas>> Listar(Expression<Func<Metas, bool>> criterio)
+        public async Task<List<Models.metas>> Listar(Expression<Func<Models.metas, bool>> criterio)
         {
             return await _contexto.Metas.AsNoTracking().Where(criterio).ToListAsync();
         }

@@ -21,7 +21,7 @@
         </div>
         <div class="card-footer text-center">
             <div class="input-group">
-                <a href="/Index" class="btn btn-warning">Volver</a>
+                <a href="/Index/@MetasId" class="btn btn-warning">Volver</a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
 @code {
     [Parameter]
     public int MetasId { get; set; }
-    public Metas metas { get; set; } = new Metas();
+    public metas metas { get; set; } = new metas();
 
     protected override async Task OnInitializedAsync()
     {
