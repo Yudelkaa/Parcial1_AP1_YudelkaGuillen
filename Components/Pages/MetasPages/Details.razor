@@ -1,5 +1,47 @@
-﻿<h3>Details</h3>
+﻿@page "/Details"
+@page "/Details/{MetasId:int}"
+@inject MetasService metasService
+@rendermode InteractiveServer
+
+<PageTitle>Detalles</PageTitle>
+
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header text-center">
+            <h2>Ver</h2>
+        </div>
+
+        <div class="card-body">
+            <ul>
+                <li>Aporte Id: @metas.MetasId</li>
+                <li>Fecha: @metas.Fecha</li>
+                <li>Persona: @metas.Descripcion</li>
+                <li>Observación: @metas.Monto</li>
+            </ul>
+        </div>
+        <div class="card-footer text-center">
+            <div class="input-group">
+                <a href="/Index" class="btn btn-warning">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
+    [Parameter]
+    public int MetasId { get; set; }
+    public Metas metas { get; set; } = new Metas();
 
+    protected override async Task OnInitializedAsync()
+    {
+        if (MetasId > 0)
+        {
+            await Buscar();
+        }
+    }
+
+    public async Task Buscar()
+    {
+        metas = await metasService.Buscar(MetasId);
+    }
 }
